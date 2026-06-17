@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>조교용 그림책자 · Claude Code 따라하기</title>
+<style>
+  :root{
+    --ink:#3a3a3a; --ink2:#6b6b6b; --paper:#fff9f0;
+    --blue:#e3f0ff; --blueD:#2f6fb3;
+    --green:#e7f6ec; --greenD:#2e8b57;
+    --amber:#fff3d6; --amberD:#c08a16;
+    --purple:#f3e8ff; --purpleD:#7a4fb0;
+    --pink:#ffe9ef; --pinkD:#c8527c;
+    --teal:#e0f7f1; --tealD:#2a9d8f;
+    --peach:#fde9d9; --peachD:#d57a45;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Pretendard","Malgun Gothic","맑은 고딕",system-ui,sans-serif;line-height:1.7;}
+  .book{max-width:780px;margin:0 auto;padding:28px 18px 60px;}
+  .page{background:#fff;border-radius:28px;padding:34px 34px 30px;margin:0 0 26px;
+    border:2px solid rgba(0,0,0,.05);box-shadow:0 8px 24px rgba(0,0,0,.05);}
+  .ill{display:block;margin:0 auto 14px;}
+  .step{display:inline-flex;align-items:center;gap:10px;font-weight:700;
+    font-size:15px;padding:6px 16px;border-radius:999px;margin-bottom:10px;}
+  h1{font-size:34px;line-height:1.25;margin:6px 0 8px;font-weight:800;}
+  h2{font-size:26px;margin:4px 0 6px;font-weight:800;}
+  p{font-size:18px;margin:6px 0;}
+  .big{font-size:20px;font-weight:700;}
+  .sub{color:var(--ink2);font-size:16px;}
+  .tip{margin-top:16px;border-radius:18px;padding:14px 18px;font-size:16px;}
+  .bubble{background:#fff;border:2px dashed rgba(0,0,0,.18);border-radius:18px;
+    padding:12px 16px;margin:10px 0;font-size:17px;font-weight:600;color:#1f4e79;}
+  .bubble small{display:block;color:var(--ink2);font-weight:500;font-size:14px;margin-top:4px;}
+  .cnt{text-align:center;}
+  .link{font-weight:700;color:var(--blueD);word-break:break-all;}
+  ul{margin:8px 0;padding-left:22px;} li{font-size:18px;margin:4px 0;}
+  .foot{text-align:center;color:var(--ink2);font-size:14px;margin-top:8px;}
+  @media print{
+    body{background:#fff;} .book{padding:0;max-width:none;}
+    .page{box-shadow:none;border:1px solid #ddd;page-break-after:always;margin:0;border-radius:0;}
+  }
+</style>
+</head>
+<body>
+<div class="book">
+
+  <!-- COVER -->
+  <div class="page cnt" style="background:var(--peach);">
+    <svg class="ill" width="240" height="200" viewBox="0 0 240 200" role="img" aria-label="컴퓨터와 도우미 로봇 그림">
+      <rect x="46" y="40" width="148" height="98" rx="12" fill="#fff" stroke="#d57a45" stroke-width="4"/>
+      <rect x="62" y="56" width="116" height="66" rx="6" fill="#fde9d9"/>
+      <rect x="86" y="146" width="68" height="10" rx="5" fill="#d57a45"/>
+      <rect x="70" y="156" width="100" height="10" rx="5" fill="#e9a877"/>
+      <!-- robot -->
+      <rect x="92" y="62" width="56" height="48" rx="12" fill="#2f6fb3"/>
+      <circle cx="108" cy="84" r="6" fill="#fff"/><circle cx="132" cy="84" r="6" fill="#fff"/>
+      <path d="M106 98 q14 12 28 0" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <line x1="120" y1="52" x2="120" y2="62" stroke="#2f6fb3" stroke-width="4"/>
+      <circle cx="120" cy="49" r="5" fill="#d57a45"/>
+      <!-- sparkles -->
+      <path d="M40 30 l4 8 8 4 -8 4 -4 8 -4-8 -8-4 8-4z" fill="#f6b24b"/>
+      <path d="M196 96 l3 6 6 3 -6 3 -3 6 -3-6 -6-3 6-3z" fill="#f6b24b"/>
+    </svg>
+    <div class="step" style="background:#fff;color:var(--peachD);">조교용 그림책자</div>
+    <h1>클로드코드로<br>학과 문서 만들기</h1>
+    <p class="big" style="color:var(--peachD);">컴퓨터를 잘 몰라도 괜찮아요!</p>
+    <p class="sub">그림을 보며 1번부터 순서대로 따라 하면<br>엑셀·한글 문서가 저절로 완성됩니다 ✦</p>
+    <p class="foot">미래융합대학 경영학전공 · AX 교육 자료</p>
+  </div>
+
+  <!-- STEP 0 -->
+  <div class="page" style="background:var(--blue);">
+    <svg class="ill" width="220" height="160" viewBox="0 0 220 160" role="img" aria-label="프로그램 설치 그림">
+      <rect x="36" y="34" width="120" height="80" rx="10" fill="#fff" stroke="#2f6fb3" stroke-width="4"/>
+      <rect x="74" y="118" width="44" height="9" rx="4" fill="#2f6fb3"/>
+      <path d="M96 50 v26" stroke="#2f6fb3" stroke-width="6" stroke-linecap="round"/>
+      <path d="M82 66 l14 14 14-14" stroke="#2f6fb3" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- puzzle piece (skill) -->
+      <g transform="translate(150,60)">
+        <rect x="0" y="0" width="54" height="54" rx="10" fill="#f6b24b"/>
+        <circle cx="27" cy="0" r="10" fill="#f6b24b"/>
+        <text x="27" y="33" text-anchor="middle" font-size="13" font-weight="700" fill="#7a4e00">한글</text>
+      </g>
+    </svg>
+    <div class="step" style="background:#fff;color:var(--blueD);">STEP 0 · 딱 한 번만 준비</div>
+    <h2>프로그램 두 가지 설치</h2>
+    <p>① <b>클로드코드(Claude Code)</b>를 컴퓨터에 깔아요.</p>
+    <p>② <b>한글 문서 기능(스킬)</b>도 함께 깔아요.</p>
+    <div class="tip" style="background:#fff;">
+      <p class="sub" style="margin:0;">설치 주소</p>
+      <p class="link" style="margin:2px 0 0;">github.com/sdkparkforbi/claude-skill-hwpx</p>
+      <p class="sub" style="margin:6px 0 0;">※ 설치가 어려우면 학과장님·담당자에게 한 번만 도움받으면 돼요.</p>
+    </div>
+  </div>
+
+  <!-- STEP 1 -->
+  <div class="page" style="background:var(--green);">
+    <svg class="ill" width="220" height="150" viewBox="0 0 220 150" role="img" aria-label="새 대화 시작 그림">
+      <rect x="30" y="28" width="160" height="94" rx="12" fill="#fff" stroke="#2e8b57" stroke-width="4"/>
+      <rect x="30" y="28" width="160" height="24" rx="12" fill="#cdeed8"/>
+      <circle cx="46" cy="40" r="4" fill="#2e8b57"/>
+      <rect x="46" y="66" width="90" height="12" rx="6" fill="#e3f3ea"/>
+      <rect x="46" y="86" width="60" height="12" rx="6" fill="#e3f3ea"/>
+      <g>
+        <circle cx="158" cy="92" r="20" fill="#2e8b57"/>
+        <path d="M158 82 v20 M148 92 h20" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+      </g>
+    </svg>
+    <div class="step" style="background:#fff;color:var(--greenD);">STEP 1 · 시작</div>
+    <h2>‘새 대화’ 누르기</h2>
+    <p>클로드코드를 켜고,<br><span class="big" style="color:var(--greenD);">＋ 새 대화</span> 버튼을 눌러요.</p>
+    <div class="tip" style="background:#fff;"><p class="sub" style="margin:0;">대화창이 열리면 준비 끝! 이제 말만 하면 돼요.</p></div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="page" style="background:var(--amber);">
+    <svg class="ill" width="220" height="150" viewBox="0 0 220 150" role="img" aria-label="폴더 선택 그림">
+      <path d="M50 50 h36 l12 14 h62 a8 8 0 0 1 8 8 v44 a8 8 0 0 1 -8 8 H50 a8 8 0 0 1 -8-8 V58 a8 8 0 0 1 8-8z" fill="#f6b24b"/>
+      <path d="M58 66 h104 a8 8 0 0 1 8 8 v44 a8 8 0 0 1 -8 8 H58 a8 8 0 0 1 -8-8 V74 a8 8 0 0 1 8-8z" fill="#ffe09a"/>
+      <circle cx="150" cy="40" r="16" fill="none" stroke="#c08a16" stroke-width="5"/>
+      <line x1="161" y1="51" x2="174" y2="64" stroke="#c08a16" stroke-width="6" stroke-linecap="round"/>
+    </svg>
+    <div class="step" style="background:#fff;color:var(--amberD);">STEP 2 · 폴더 고르기</div>
+    <h2>작업할 폴더 선택</h2>
+    <p>화면 아래에서 <b>폴더 하나</b>를 골라요.</p>
+    <p class="sub">문서를 만들 파일들이 들어 있는 폴더를 고르면 됩니다.</p>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="page" style="background:var(--purple);">
+    <svg class="ill" width="240" height="160" viewBox="0 0 240 160" role="img" aria-label="파일을 폴더에 모으는 그림">
+      <path d="M120 84 h70 a8 8 0 0 1 8 8 v44 a8 8 0 0 1 -8 8 H120 a8 8 0 0 1 -8-8 V92 a8 8 0 0 1 8-8z" fill="#caa6e8"/>
+      <path d="M120 72 h22 l8 10 h40 a8 8 0 0 1 8 8 H112 a8 8 0 0 1 8-18z" fill="#b489dd"/>
+      <!-- files -->
+      <g>
+        <rect x="22" y="40" width="40" height="50" rx="5" fill="#fff" stroke="#7a4fb0" stroke-width="3"/>
+        <text x="42" y="70" text-anchor="middle" font-size="11" font-weight="700" fill="#2e8b57">xlsx</text>
+      </g>
+      <g>
+        <rect x="60" y="64" width="40" height="50" rx="5" fill="#fff" stroke="#7a4fb0" stroke-width="3"/>
+        <text x="80" y="94" text-anchor="middle" font-size="11" font-weight="700" fill="#c8527c">hwp</text>
+      </g>
+      <path d="M70 60 q26 -6 44 18" stroke="#7a4fb0" stroke-width="3" fill="none" stroke-dasharray="4 4" marker-end="url(#a)"/>
+      <defs><marker id="a" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M2 2 L8 5 L2 8" fill="none" stroke="#7a4fb0" stroke-width="2"/></marker></defs>
+    </svg>
+    <div class="step" style="background:#fff;color:var(--purpleD);">STEP 3 · 파일 모으기</div>
+    <h2>한 폴더에 다 모으기</h2>
+    <p>필요한 파일을 <b>모두 같은 폴더</b>에 넣어요.</p>
+    <ul>
+      <li>채울 <b>양식 파일</b> (예: 신청 양식.xlsx, 인증서.hwp)</li>
+      <li>참고할 <b>자료</b> (예: 교과과정.xlsx, 실러버스.xls, 강의 OT.pptx)</li>
+    </ul>
+  </div>
+
+  <!-- STEP 4 -->
+  <div class="page" style="background:var(--pink);">
+    <svg class="ill" width="240" height="150" viewBox="0 0 240 150" role="img" aria-label="사람이 컴퓨터에게 말하는 그림">
+      <circle cx="52" cy="70" r="18" fill="#c8527c"/>
+      <path d="M28 120 q24-30 48 0z" fill="#c8527c"/>
+      <rect x="120" y="36" width="100" height="64" rx="14" fill="#fff" stroke="#c8527c" stroke-width="4"/>
+      <path d="M120 92 l-14 16 22 -4z" fill="#fff" stroke="#c8527c" stroke-width="4"/>
+      <rect x="134" y="54" width="62" height="9" rx="4" fill="#ffd4e1"/>
+      <rect x="134" y="72" width="44" height="9" rx="4" fill="#ffd4e1"/>
+    </svg>
+    <div class="step" style="background:#fff;color:var(--pinkD);">STEP 4 · 가장 중요!</div>
+    <h2>말하듯이 시키기</h2>
+    <p class="sub">아래 문장을 복사해서 <b>파일명만</b> 바꿔 넣어 보세요.</p>
+    <div class="bubble">“OOO양식.xlsx 확인해 봐 주세요. 어떤 정보를 원하는지 알려주세요.”<small>① 먼저 양식 살펴보기</small></div>
+    <div class="bubble">“ㅁㅁ 과목을 비대면으로 운용하려고 합니다. 신청 양식_경영학.xlsx로 만들어 주세요.”<small>② 양식 채워서 새 파일 만들기</small></div>
+    <div class="bubble">“OOO.hwp를 템플릿으로 ㅁㅁ 신규과목 인증서를 만들어 주세요.”<small>③ 한글 양식으로 문서 만들기</small></div>
+    <div class="tip" style="background:#fff;"><p class="sub" style="margin:0;">고칠 곳이 있으면 “OO를 △△로 고쳐줘” 라고 다시 말하면 됩니다.</p></div>
+  </div>
+
+  <!-- STEP 5 -->
+  <div class="page" style="background:var(--teal);">
+    <svg class="ill" width="220" height="150" viewBox="0 0 220 150" role="img" aria-label="검토 체크리스트 그림">
+      <rect x="58" y="26" width="104" height="100" rx="10" fill="#fff" stroke="#2a9d8f" stroke-width="4"/>
+      <g stroke="#2a9d8f" stroke-width="5" stroke-linecap="round" fill="none">
+        <path d="M74 52 l6 6 10-12"/><path d="M74 80 l6 6 10-12"/><path d="M74 108 l6 6 10-12"/>
+      </g>
+      <line x1="100" y1="52" x2="146" y2="52" stroke="#cdeee9" stroke-width="7" stroke-linecap="round"/>
+      <line x1="100" y1="80" x2="146" y2="80" stroke="#cdeee9" stroke-width="7" stroke-linecap="round"/>
+      <line x1="100" y1="108" x2="146" y2="108" stroke="#cdeee9" stroke-width="7" stroke-linecap="round"/>
+    </svg>
+    <div class="step" style="background:#fff;color:var(--tealD);">STEP 5 · 검토</div>
+    <h2>제출 전에 꼭 확인!</h2>
+    <p class="sub">클로드는 가끔 실수해요. 사람 눈으로 한 번 더 확인하면 안전해요.</p>
+    <ul>
+      <li>✔ 소속·학과·교수 이름이 맞나요?</li>
+      <li>✔ 학점·시수·평가 비중 숫자가 맞나요?</li>
+      <li>✔ 비어 있는 칸(코드·교번)은 없나요?</li>
+    </ul>
+    <div class="tip" style="background:#fff;"><p class="sub" style="margin:0;"><b style="color:var(--tealD);">실제 사례</b> · 소속을 ‘데이터경영학과’로 잘못 적음 → ‘미래융합대학 경영학전공’으로 수정했어요.</p></div>
+  </div>
+
+  <!-- DONE -->
+  <div class="page cnt" style="background:var(--peach);">
+    <svg class="ill" width="220" height="160" viewBox="0 0 220 160" role="img" aria-label="문서 완성 그림">
+      <rect x="74" y="34" width="72" height="92" rx="8" fill="#fff" stroke="#d57a45" stroke-width="4"/>
+      <line x1="88" y1="56" x2="132" y2="56" stroke="#f1d2bd" stroke-width="6" stroke-linecap="round"/>
+      <line x1="88" y1="72" x2="132" y2="72" stroke="#f1d2bd" stroke-width="6" stroke-linecap="round"/>
+      <line x1="88" y1="88" x2="116" y2="88" stroke="#f1d2bd" stroke-width="6" stroke-linecap="round"/>
+      <circle cx="138" cy="104" r="20" fill="#2e8b57"/>
+      <path d="M129 104 l6 7 12-14" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M44 40 l4 8 8 4 -8 4 -4 8 -4-8 -8-4 8-4z" fill="#f6b24b"/>
+      <path d="M176 60 l3 6 6 3 -6 3 -3 6 -3-6 -6-3 6-3z" fill="#f6b24b"/>
+    </svg>
+    <h2 style="color:var(--peachD);">문서 완성! 🎉</h2>
+    <p class="big">① 파일 모으기 → ② 폴더 고르기<br>→ ③ 말하기 → ④ 확인하고 제출</p>
+    <p class="sub">어렵게 생각하지 마세요.<br>막히면 그냥 “이거 어떻게 해?” 라고 물어봐도 돼요.</p>
+    <p class="foot">잘하셨어요! · 미래융합대학 경영학전공</p>
+  </div>
+
+</div>
+</body>
+</html>
